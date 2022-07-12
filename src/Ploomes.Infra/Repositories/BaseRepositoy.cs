@@ -54,7 +54,7 @@ namespace Ploomes.Infra.Repositories
             return await _context.Set<T>().AsNoTracking().ToListAsync();
         }
 
-        public virtual async Task<T> Delete(long id)
+        public virtual async Task<T> Remove(long id)
         {
             // Verifica se o objeto que queremos remover existe
             var obj = await Get(id);
