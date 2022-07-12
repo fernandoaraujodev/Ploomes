@@ -23,7 +23,7 @@ namespace Ploomes.Infra.Interfaces
         /// <summary>
         /// Buscar nomes (pode-se colocar partes de um nome)
         /// </summary>
-        /// <param name="email"></param>
+        /// <param name="name"></param>
         /// <returns>resultados da palavra digitada</returns>
         Task<List<User>> SearchByName(string name);
         

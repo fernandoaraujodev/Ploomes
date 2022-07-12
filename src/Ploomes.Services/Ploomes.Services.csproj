@@ -1,5 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+  <ItemGroup>
+    <ProjectReference Include="..\Ploomes.Domain\Ploomes.Domain.csproj" />
+    <ProjectReference Include="..\Ploomes.Core\Ploomes.Core.csproj" />
+    <ProjectReference Include="..\Ploomes.Infra\Ploomes.Infra.csproj" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Ploomes.Core.Exceptions;
 using Ploomes.Domain.Validators;
 
 namespace Ploomes.Domain.Entities
@@ -11,11 +12,10 @@ namespace Ploomes.Domain.Entities
         public string Password { get; private set; }
 
         // EF 
-        protected User() { }
+        protected User(){}
 
         public User(string name, string email, string password)
         {
-            Id = Guid.NewGuid(); 
             Name = name;
             Email = email;
             Password = password;
@@ -42,21 +42,7 @@ namespace Ploomes.Domain.Entities
         }
 
         // Autovalidação
-        public override bool Validate()
-        {
-            var validator = UserValidator();
-            var validation = validator.Validate(this);
-
-            if (!validation.IsValid)
-            {
-                foreach (var error in validation.Errors)
-                    _errors.Add(error.Message);
-
-                throw new Exception("Alguns campos estão inválidos, por favor corrija-os!" + _errors[0]);
-            }
-
-            return true;
-        }
+        public bool Validate() => base.Validate(new UserValidator(), this);
 
     }
 }

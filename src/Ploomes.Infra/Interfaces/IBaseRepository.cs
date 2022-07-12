@@ -1,6 +1,7 @@
 using Ploomes.Domain.Entities;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System;
 
 namespace Ploomes.Infra.Interfaces
 {
@@ -8,8 +9,8 @@ namespace Ploomes.Infra.Interfaces
     {
         Task<T> Create(T obj);
         Task<T> Update(T obj);
-        Task<T> Remove(Guid obj);
-        Task<T> Get(Guid obj);
+        Task<T> Delete(long id);
+        Task<T> Get(long id);
         Task<List<T>> Get();
         
     }

@@ -1,3 +1,11 @@
+using Microsoft.EntityFrameworkCore;
+using Ploomes.Domain.Entities;
+using Ploomes.Infra.Context;
+using Ploomes.Infra.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
 namespace Ploomes.Infra.Repositories
 {
     public class UserRepository : BaseRepository<User>, IUserRepository
@@ -25,12 +33,12 @@ namespace Ploomes.Infra.Repositories
             return allUsers;
         }
 
-        public async Task<User> SearchByName(string name)
+        public async Task<List<User>> SearchByName(string name)
         {
             var allUsers = await _context.Users.Where(x => x.Name.ToLower().Contains(name.ToLower())).AsNoTracking().ToListAsync();
 
             // Retorna um nome que contenha a palavra digitada
-            return allUsers.FirstOrDefault();
+            return allUsers;
         }
 
     }

@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Ploomes.Infra.Interfaces;
 using Ploomes.Domain.Entities;
 using Ploomes.Infra.Context;
+using System;
+using System.Collections.Generic;
 
 namespace Ploomes.Infra.Repositories
 {
@@ -36,21 +38,7 @@ namespace Ploomes.Infra.Repositories
             return obj;
         }
 
-        public virtual async Task<T> Remove(Guid id)
-        {
-            // Verifica se o objeto que queremos remover existe
-            var obj = await Get(id)
-
-            // Se existir, Remove!
-            if(obj != null)
-            {
-                _context.Remove(obj);
-                await _context.SaveChangesAsync();
-            }
-        }
-
-
-        public virtual async Task<T> Get(Guid id)
+        public virtual async Task<T> Get(long id)
         {
             // Define a tabela e faz o SELECT pelo id, sem o trackamento e retornando uma lista
             var obj = await _context.Set<T>().AsNoTracking().Where(x => x.Id == id).ToListAsync();
@@ -59,12 +47,26 @@ namespace Ploomes.Infra.Repositories
             return obj.FirstOrDefault();
         }
 
+
         public virtual async Task<List<T>> Get()
         {
             // Define a tabela e faz o SELECT, sem o trackamento e retornando uma lista
             return await _context.Set<T>().AsNoTracking().ToListAsync();
         }
 
+        public virtual async Task<T> Delete(long id)
+        {
+            // Verifica se o objeto que queremos remover existe
+            var obj = await Get(id);
 
+            // Se existir, Remove!
+            if (obj != null)
+            {
+                _context.Remove(obj);
+                await _context.SaveChangesAsync();
+            }
+
+            return obj;
+        }
     }
 }
