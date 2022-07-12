@@ -1,16 +1,20 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Ploomes.API.ViewModels;
+using Ploomes.Domain.Entities;
+using Ploomes.Infra.Context;
+using Ploomes.Infra.Interfaces;
+using Ploomes.Infra.Repositories;
+using Ploomes.Services.DTO;
+using Ploomes.Services.Interfaces;
+using Ploomes.Services.Services;
 
 namespace Ploomes.API
 {
@@ -28,6 +32,29 @@ namespace Ploomes.API
         {
 
             services.AddControllers();
+
+
+            var autoMapperConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<User, UserDTO>().ReverseMap();
+                cfg.CreateMap<CreateUserViewModel, UserDTO>().ReverseMap();
+                cfg.CreateMap<UpdateUserViewModel, UserDTO>().ReverseMap();
+            });
+
+            services.AddSingleton(autoMapperConfig.CreateMapper());
+
+
+            services.AddDbContext<PloomesContext>(options => options
+                .UseSqlServer(Configuration["ConnectionStrings:Ploomes_Manager"])
+                .EnableSensitiveDataLogging()
+                .UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole())),
+            ServiceLifetime.Transient);
+
+            // Injeção de Dependência
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
+
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ploomes.API", Version = "v1" });
