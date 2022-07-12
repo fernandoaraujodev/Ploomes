@@ -1,4 +1,5 @@
 using AutoMapper;
+using EscNet.DependencyInjection.IoC.Cryptography;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -19,6 +20,8 @@ using Ploomes.Services.DTO;
 using Ploomes.Services.Interfaces;
 using Ploomes.Services.Services;
 using System;
+using System.IO;
+using System.Reflection;
 using System.Text;
 
 namespace Ploomes.API
@@ -99,7 +102,12 @@ namespace Ploomes.API
                         Email = "",
                         Url = new Uri("https://github.com/fernandoaraujodev")
                     },
+
                 });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
 
                 // Descrição de segurança para consumir as rotas
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -126,6 +134,9 @@ namespace Ploomes.API
             });
 
             #endregion
+
+            services.AddRijndaelCryptography(Configuration["Cryptography"]);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

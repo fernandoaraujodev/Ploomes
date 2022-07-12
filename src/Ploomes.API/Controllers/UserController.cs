@@ -25,6 +25,12 @@ namespace Ploomes.API.Controllers
             _userService = userService;
         }
 
+
+        /// <summary>
+        /// Cria um usário
+        /// </summary>
+        /// <param name="userViewModel"></param>
+        /// <returns>Retorna o usuário criado</returns>
         [HttpPost]
         [Authorize]
         [Route("/api/v1/create")]
@@ -51,6 +57,11 @@ namespace Ploomes.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Atualiza um usuário
+        /// </summary>
+        /// <param name="userViewModel"></param>
+        /// <returns>Retorna o usuário alterado</returns>
         [HttpPut]
         [Authorize]
         [Route("/api/v1/users/update")]
@@ -79,6 +90,12 @@ namespace Ploomes.API.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Deleta um usuário
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Remove o usuário</returns>
         [HttpDelete]
         [Authorize]
         [Route("/api/v1/users/remove/{id}")]
@@ -104,6 +121,11 @@ namespace Ploomes.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Busca usuário por id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Retorna o usuário com seu respectivo id</returns>
         [HttpGet]
         [Authorize]
         [Route("/api/v1/users/get/{id}")]
@@ -136,6 +158,10 @@ namespace Ploomes.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Busca todos os usuários cadastrados
+        /// </summary>
+        /// <returns>Retorna lista com todos os usuário cadastrados</returns>
         [HttpGet]
         [Authorize]
         [Route("/api/v1/users/get-all")]
@@ -161,6 +187,11 @@ namespace Ploomes.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Busca usuário por email cadastrado
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns>Retorna lista com o email digitado</returns>
         [HttpGet]
         [Authorize]
         [Route("/api/v1/users/get-by-email")]
@@ -193,6 +224,11 @@ namespace Ploomes.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Busca nome de usuário de acordo com a palavra digitada
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>Retorna lista com a palavra digitada</returns>
         [HttpGet]
         [Authorize]
         [Route("/api/v1/users/search-by-name")]
@@ -225,7 +261,11 @@ namespace Ploomes.API.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Busca email de usuário de acordo com a palavra digitada
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns>Retorna lista com a palavra digitada</returns>
         [HttpGet]
         [Authorize]
         [Route("/api/v1/users/search-by-email")]

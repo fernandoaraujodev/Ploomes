@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EscNet.Cryptography.Interfaces;
 using Ploomes.Core.Exceptions;
 using Ploomes.Domain.Entities;
 using Ploomes.Infra.Interfaces;
@@ -12,12 +13,14 @@ namespace Ploomes.Services.Services
     public class UserService : IUserService
     {
         private readonly IMapper _mapper;
+        private readonly IRijndaelCryptography _rijndaelCryptography;
         private readonly IUserRepository _userRepository;
 
-        public UserService(IMapper mapper, IUserRepository userRepository)
+        public UserService(IMapper mapper, IUserRepository userRepository, IRijndaelCryptography rijndaelCryptography)
         {
             _mapper = mapper;
             _userRepository = userRepository;
+            _rijndaelCryptography = rijndaelCryptography;
         }
 
         public async Task<UserDTO> Create(UserDTO userDTO)
@@ -29,6 +32,7 @@ namespace Ploomes.Services.Services
 
             var user = _mapper.Map<User>(userDTO);
             user.Validate();
+            user.ChangePassword(_rijndaelCryptography.Encrypt(user.Password)); //Senha encriptada
 
             var userCreated = await _userRepository.Create(user);
 
@@ -84,6 +88,7 @@ namespace Ploomes.Services.Services
 
             var user = _mapper.Map<User>(userDTO);
             user.Validate();
+            user.ChangePassword(_rijndaelCryptography.Encrypt(user.Password)); //Senha encriptada
 
             var userUpdated = await _userRepository.Update(user);
 

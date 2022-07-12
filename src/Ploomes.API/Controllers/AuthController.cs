@@ -20,6 +20,11 @@ namespace Ploomes.API.Controllers
             _tokenGenerator = tokenGenerator;
         }
 
+        /// <summary>
+        /// Login de email e senha
+        /// </summary>
+        /// <param name="loginViewModel"></param>
+        /// <returns>Retorna Token de autenticação</returns>
         [HttpPost]
         [Route("/api/v1/auth/login")]
         public IActionResult Login([FromBody] LoginViewModel loginViewModel)
