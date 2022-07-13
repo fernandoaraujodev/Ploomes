@@ -2,6 +2,9 @@
 <p>Projeto criado para um desafio técnico proposto pela empresa Ploomes, onde era necessário a criação de uma API com tema livre e disponibilizar ela e o banco de dados na nuvem do Azure</strong></p>
 <br>
 
+<h3 align="center">Para rodar a API na nuvem você precisa:</h3>
+<p>Assistir esse vídeo introdutório da aplicação, onde mostro ela rodando todas as funcionalidades: https://screenrec.com/share/3qSgD7hdnF<p>
+<p>Acessar o endpoint da API, para fazer testes: https://myploomesapi.azurewebsites.net/swagger<p>
 
 <h3 align="center">Para rodar localmente o projeto você precisa configurar algumas variáveis de ambiente</h3>
 <br>
